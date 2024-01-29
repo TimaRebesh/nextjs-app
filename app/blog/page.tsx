@@ -5,15 +5,14 @@ import { getPosts } from "@lib/data";
 const BlogPage = async () => {
 
   const posts = await getPosts();
-  console.log(posts);
 
   return (
     <div className={styles.container}>
-      {/* {posts.map((post: any) => (
+      {posts.map((post: any) => (
         <div className={styles.post} key={post.id}>
           <PostCard post={post} />
         </div>
-      ))} */}
+      ))}
     </div>
   );
 };
