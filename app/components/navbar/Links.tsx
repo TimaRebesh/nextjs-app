@@ -3,6 +3,8 @@ import styles from './navbar.module.css';
 import React, { useState } from 'react';
 import NavLink from './navLink/NavLink';
 import Image from 'next/image';
+import { handleLogOut } from '@lib/actions';
+import { Session } from 'next-auth/types';
 
 const links: LinkType[] = [
   {
@@ -23,11 +25,15 @@ const links: LinkType[] = [
   },
 ];
 
+interface LinksProps {
+  session: Session | null;
+}
 
-function Links() {
+
+function Links({ session }: LinksProps) {
+  console.log(session);
   const [isOpen, setIsOpen] = useState(false);
 
-  const session = true;
   const isAdmit = true;
 
   return (
@@ -36,10 +42,12 @@ function Links() {
         {links.map(link => (
           <NavLink key={link.title} item={link} />
         ))}
-        {session ? (
+        {session?.user ? (
           <>
             {isAdmit && <NavLink item={{ title: "Admin", path: "/admin" }} />}
-            <button className={styles.logout}>Logout</button>
+            <form action={handleLogOut}>
+              <button className={styles.logout}>Logout</button>
+            </form>
           </>
         ) : (
           <NavLink item={{ title: "Login", path: "/login" }} />

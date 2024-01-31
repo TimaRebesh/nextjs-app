@@ -1,18 +1,22 @@
-import React from 'react'
-import Links from './Links'
-import style from './navbar.module.css'
-import Link from 'next/link'
+import React from 'react';
+import Links from './Links';
+import style from './navbar.module.css';
+import Link from 'next/link';
+import { auth } from '@lib/auth';
 
-function Navbar() {
+async function Navbar() {
+
+  const session = await auth();
+
   return (
     <div className={style.container}>
       <Link href='/' className={style.logo} >Logo</Link>
       <div>
-        <Links />
+        <Links session={session} />
       </div>
     </div>
-  )
+  );
 }
 
 
-export default Navbar
+export default Navbar;
