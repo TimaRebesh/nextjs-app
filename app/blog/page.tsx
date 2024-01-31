@@ -1,6 +1,8 @@
 import PostCard from "@/components/postCard/postCard";
 import styles from "./blog.module.css";
 import { getPosts } from "@lib/data";
+import { Metadata } from "next";
+
 
 const BlogPage = async () => {
 
@@ -15,6 +17,10 @@ const BlogPage = async () => {
       ))}
     </div>
   );
+};
+
+export const metadata: Metadata = {
+  description: "blog page description",
 };
 
 export default BlogPage;

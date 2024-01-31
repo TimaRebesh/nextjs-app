@@ -1,6 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
 import styles from './contact.module.css';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  description: "contact page description",
+};
 
 function Contact() {
   return (

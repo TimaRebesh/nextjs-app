@@ -1,6 +1,7 @@
 'use client';
 import Image from "next/image";
 import styles from "./home.module.css";
+import { Metadata } from "next";
 
 export default function Home() {
   return (
