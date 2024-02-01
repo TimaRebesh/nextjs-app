@@ -31,7 +31,7 @@ interface LinksProps {
 
 
 function Links({ session }: LinksProps) {
-  console.log(session);
+
   const [isOpen, setIsOpen] = useState(false);
 
   const isAdmit = true;
