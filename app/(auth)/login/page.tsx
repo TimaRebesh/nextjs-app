@@ -1,11 +1,17 @@
+import LoginForm from "@/components/loginForm/loginForm";
 import { handleGitHubLogin } from "@lib/actions";
+import styles from "./login.module.css";
 
-const LoginPage = async () => {
+const LoginPage = () => {
+
   return (
-    <div>
-      <form action={handleGitHubLogin} >
-        <button>Login with GitHub</button>
-      </form>
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
+        <form action={handleGitHubLogin}>
+          <button className={styles.github}>Login with Github</button>
+        </form>
+        <LoginForm />
+      </div>
     </div>
   );
 };

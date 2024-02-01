@@ -14,7 +14,7 @@ const RegisterForm = () => {
     <form className={styles.form} action={register}>
       <div>
         <label>username</label>
-        <input type="text" placeholder="name" name="username" />
+        <input type="text" placeholder="username" name="username" />
       </div>
       <div>
         <label>email</label>

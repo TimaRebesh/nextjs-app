@@ -2,6 +2,7 @@
 import { signIn, signOut } from '@lib/auth';
 import { connectToDb } from './utils';
 import { User } from './models';
+import bcrypt from "bcryptjs";
 
 export const sayHello = async () => {
   console.log('hello');
@@ -29,10 +30,14 @@ export const register = async (formData: FormData) => {
     if (user) {
       return "Username already exists. Please choose another name";
     }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password as string, salt);
+
     const newUser = new User({
       username,
       email,
-      password,
+      password: hashedPassword,
       img
     });
     await newUser.save();
@@ -40,4 +45,20 @@ export const register = async (formData: FormData) => {
   } catch (e) {
     return { error: 'Something went wrong' };
   }
+};
+
+export const login = async (formData: any) => {
+  const { username, password } = Object.fromEntries(formData);
+
+  try {
+    await signIn("credentials", {
+      username,
+      password
+    });
+
+  } catch (err) {
+    console.log(err);
+    return { error: "Error until login" };
+  }
+
 };
