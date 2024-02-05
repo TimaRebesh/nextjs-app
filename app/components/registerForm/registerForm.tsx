@@ -11,7 +11,7 @@ const RegisterForm = () => {
 
   useEffect(() => {
     state?.success && router.push("/login");
-  }, [state?.success, router]);
+  }, [state?.success]);
 
   return (
     <form className={styles.form} action={formAction}>

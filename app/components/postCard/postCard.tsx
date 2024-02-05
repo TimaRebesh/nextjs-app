@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "./postCard.module.css";
 import Link from "next/link";
+import { PostType } from "@/types";
 
 const PostCard = ({
   post
