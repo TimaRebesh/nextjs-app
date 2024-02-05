@@ -1,12 +1,12 @@
-import NextAuth, { User as UserType, Account, Profile } from "next-auth";
+import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
 import credentialsProvider from "next-auth/providers/credentials";
 import { connectToDb } from "./utils";
 import { User } from "./models";
 import bcrypt from 'bcryptjs';
+import { authConfig } from "./auth.config";
 
 const login = async (credentials: Partial<Record<string, unknown>>) => {
-
   try {
     connectToDb();
     const user = await User.findOne({ username: credentials.username });
@@ -28,13 +28,13 @@ const login = async (credentials: Partial<Record<string, unknown>>) => {
   }
 };
 
-
 export const {
   handlers: { GET, POST },
   auth,
   signIn,
   signOut
 } = NextAuth({
+  ...authConfig,
   providers: [
     GitHub({
       clientId: process.env.GITHUB_ID,
@@ -54,10 +54,6 @@ export const {
   callbacks: {
     async signIn({
       user, account, profile
-    }: {
-      user: UserType | undefined,
-      account: Account | null,
-      profile: Profile | undefined;
     }) {
       if (profile && account?.provider === "github") {
         connectToDb();
@@ -77,6 +73,8 @@ export const {
         }
       }
       return true;
-    }
-  }
+    },
+    ...authConfig.callbacks,
+  },
+
 });

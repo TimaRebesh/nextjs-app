@@ -67,9 +67,9 @@ export const login = async (previousState: any, formData: any) => {
     console.log(err);
 
     if (err.message.includes("CredentialsSignin")) {
-      return { error: 'Invalid user or password' };
+      return { error: "Invalid username or password" };
     }
-    return { error: "Error until login" };
+    throw err;
   }
 
 };
