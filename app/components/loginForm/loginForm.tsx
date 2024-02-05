@@ -1,5 +1,4 @@
 "use client";
-
 import { login } from "@lib/actions";
 import styles from "./loginForm.module.css";
 import { useFormState } from "react-dom";
@@ -9,7 +8,7 @@ const LoginForm = () => {
   const [state, formAction] = useFormState(login, undefined);
 
   return (
-    <form className={styles.form} action={login}>
+    <form className={styles.form} action={formAction}>
       <div>
         <label>username</label>
         <input type="text" placeholder="username" name="username" />
@@ -19,10 +18,11 @@ const LoginForm = () => {
         <input type="password" placeholder="********" name="password" />
       </div>
       <button>Login</button>
-      {/* {state?.error} */}
-      {/* <Link href="/register">
-        {"Don't have an account?"} <b>Register</b>
-      </Link> */}
+      {state?.error}
+      <Link href="/register">
+        {"Don't have an account?"}
+        <b>Register</b>
+      </Link>
     </form>
   );
 };

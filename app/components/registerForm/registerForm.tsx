@@ -1,17 +1,20 @@
+"use client";
+import { useFormState } from "react-dom";
 import styles from "./registerForm.module.css";
 import { register } from "@lib/actions";
+import { useEffect } from "react";
+import router from "next/router";
+import Link from "next/link";
 
 const RegisterForm = () => {
-  // const [state, formAction] = useFormState(register, undefined);
+  const [state, formAction] = useFormState(register, undefined);
 
-  // const router = useRouter();
-
-  // useEffect(() => {
-  //   state?.success && router.push("/login");
-  // }, [state?.success, router]);
+  useEffect(() => {
+    state?.success && router.push("/login");
+  }, [state?.success, router]);
 
   return (
-    <form className={styles.form} action={register}>
+    <form className={styles.form} action={formAction}>
       <div>
         <label>username</label>
         <input type="text" placeholder="username" name="username" />
@@ -33,10 +36,10 @@ const RegisterForm = () => {
         />
       </div>
       <button>Register</button>
-      {/* {state?.error}
+      {state?.error}
       <Link href="/login">
         Have an account? <b>Login</b>
-      </Link> */}
+      </Link>
     </form>
   );
 };
