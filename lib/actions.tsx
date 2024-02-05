@@ -8,6 +8,7 @@ import { revalidatePath } from "next/cache";
 
 export const addPost = async (previousState: any, formData: FormData) => {
   const { title, desc, slug, userId } = Object.fromEntries(formData);
+  console.log(title, desc, slug, userId);
 
   try {
     connectToDb();

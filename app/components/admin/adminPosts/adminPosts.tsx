@@ -1,24 +1,33 @@
-"use client";
-
-import { addPost } from "@lib/actions";
+import { getPosts } from "@lib/data";
 import styles from "./adminPosts.module.css";
-import { useFormState } from "react-dom";
+import Image from "next/image";
+import { deletePost } from "@lib/actions";
 
-const AdminPostForm = ({ userId }: { userId?: string; }) => {
-  const [state, formAction] = useFormState(addPost, undefined);
+const AdminPosts = async () => {
+  const posts = await getPosts();
 
   return (
-    <form action={formAction} className={styles.container}>
-      <h1>Add New Post</h1>
-      <input type="hidden" name="userId" value={userId} />
-      <input type="text" name="title" placeholder="Title" />
-      <input type="text" name="slug" placeholder="slug" />
-      <input type="text" name="img" placeholder="img" />
-      <textarea name="desc" placeholder="desc" rows={10} />
-      <button>Add</button>
-      {state?.error}
-    </form>
+    <div className={styles.container}>
+      <h1>Posts</h1>
+      {posts.map((post) => (
+        <div className={styles.post} key={post.id}>
+          <div className={styles.detail}>
+            <Image
+              src={post.img || "/noAvatar.png"}
+              alt=""
+              width={50}
+              height={50}
+            />
+            <span className={styles.postTitle}>{post.title}</span>
+          </div>
+          <form action={deletePost}>
+            <input type="hidden" name="id" value={post.id} />
+            <button className={styles.postButton}>Delete</button>
+          </form>
+        </div>
+      ))}
+    </div>
   );
 };
 
-export default AdminPostForm;
+export default AdminPosts;
